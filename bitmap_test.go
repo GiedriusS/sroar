@@ -859,7 +859,7 @@ func TestSplit(t *testing.T) {
 		id := uint64(1)
 		for _, bm := range bms {
 			itr := bm.NewIterator()
-			for cur := itr.Next(); cur != 0; cur = itr.Next() {
+			for cur := itr.At(); cur != 0; cur = itr.At() {
 				require.Equal(t, id, cur)
 				id++
 			}

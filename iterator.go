@@ -63,7 +63,19 @@ func (bm *Bitmap) NewIterator() *Iterator {
 	}
 }
 
-func (it *Iterator) Next() uint64 {
+func (it *Iterator) Next() bool {
+	if len(it.keys) == 0 {
+		return false
+	}
+
+	if it.keyIdx+2 >= len(it.keys) {
+		return false
+	}
+
+	return true
+}
+
+func (it *Iterator) At() uint64 {
 	if len(it.keys) == 0 {
 		return 0
 	}

@@ -33,10 +33,10 @@ func TestIteratorBasic(t *testing.T) {
 
 	it := bm.NewIterator()
 	for i := uint64(1); i <= n; i++ {
-		v := it.Next()
+		v := it.At()
 		require.Equal(t, i, v)
 	}
-	v := it.Next()
+	v := it.At()
 	require.Equal(t, uint64(0), v)
 }
 
@@ -51,7 +51,7 @@ func TestIteratorRanges(t *testing.T) {
 	cnt := uint64(1)
 	for idx := 0; idx < 8; idx++ {
 		it := iters[idx]
-		for v := it.Next(); v > 0; v = it.Next() {
+		for v := it.At(); v > 0; v = it.At() {
 			require.Equal(t, cnt, v)
 			cnt++
 		}
@@ -81,10 +81,10 @@ func TestIteratorRandom(t *testing.T) {
 	})
 
 	it := bm.NewIterator()
-	v := it.Next()
+	v := it.At()
 	for i := uint64(0); i < uint64(len(arr)); i++ {
 		require.Equal(t, arr[i], v)
-		v = it.Next()
+		v = it.At()
 	}
 }
 
@@ -99,7 +99,7 @@ func TestIteratorWithRemoveKeys(t *testing.T) {
 	it := b.NewIterator()
 
 	cnt := 0
-	for it.Next() > 0 {
+	for it.At() > 0 {
 		cnt++
 	}
 	require.Equal(t, 0, cnt)
@@ -135,7 +135,7 @@ func BenchmarkIterator(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		it := bm.NewIterator()
-		for it.Next() > 0 {
+		for it.At() > 0 {
 		}
 	}
 }
